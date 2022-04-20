@@ -24,15 +24,15 @@ namespace MarsFramework.Test
             loginObj.LoginSteps(driver);
 
         }
-        [Test]
-        public void A_CreateShareSkill()
+        [Test] 
+        public void ACreateShareSkill() 
         {
             ShareSkill shareskillObj = new ShareSkill();
             shareskillObj.CreateShareSkill(driver);
         }
 
         [Test]
-        public void B_EditShareSkill()
+        public void BEditShareSkill()
         {
 
 
@@ -41,7 +41,7 @@ namespace MarsFramework.Test
         }
 
         [Test]
-        public void C_DeleteShareSkill_Test()
+        public void CDeleteShareSkill_Test()
         {
             // Delete Shareskill
             ShareSkill shareSkillPageObj = new ShareSkill();
@@ -52,7 +52,8 @@ namespace MarsFramework.Test
         public void CloseTestRun()
         {
 
-
+          //  driver.Close();
+          // driver.Quit();
 
         }
     }

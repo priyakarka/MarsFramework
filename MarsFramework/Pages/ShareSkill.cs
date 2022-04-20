@@ -15,7 +15,7 @@ namespace MarsFramework.Pages
         public void CreateShareSkill(IWebDriver driver)
         {
             // click on ShareSkill 
-           // Thread.Sleep(3000);
+          
             IWebElement shareSkill = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/div[2]/a"));
             shareSkill.Click();
             
@@ -112,7 +112,7 @@ namespace MarsFramework.Pages
             //check if record is created
             Thread.Sleep(2000);
             IWebElement Category = driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[2]"));
-
+           
             // Option 1
             Assert.That(Category.Text == "Programming & Tech", "Category and expected category do not match");
 
@@ -130,16 +130,19 @@ namespace MarsFramework.Pages
         }
 
         public void EditShareSkill(IWebDriver driver)
-        {
+        {                                                 
             // Go to ManageListing Page 
             Thread.Sleep(2000);
-            IWebElement manageListing = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/a[3]"));
+            // IWebElement manageListing = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/a[3]"));
+            IWebElement manageListing = driver.FindElement(By.XPath("//*[@id='listing-management-section']/section[1]/div/a[3]"));
             manageListing.Click();
+            
 
             // click on  edit icon to edit exiting record
-            Thread.Sleep(1000);
+           Thread.Sleep(1000);
             IWebElement editButton = driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr/td[8]/div/button[2]/i"));
             editButton.Click();
+            
 
             // click on title to update to new title
             IWebElement titleTextBox = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input"));
@@ -160,7 +163,7 @@ namespace MarsFramework.Pages
             //check if Title record is created
             Thread.Sleep(2000);
             IWebElement Title = driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr/td[3]"));
-
+            
             //option 1 
             Assert.That(Title.Text == "Software Tester", "Title and expected Title do not match");
 
@@ -176,9 +179,10 @@ namespace MarsFramework.Pages
         public void DeleteShareSkill(IWebDriver driver)
         {
             // Go to ManageListing Page 
-            Thread.Sleep(2000);
-            IWebElement manageListing = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/a[3]"));
-            manageListing.Click();
+            //Thread.Sleep(2000);
+            //IWebElement manageListing = driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/a[3]"));
+            driver.FindElement(By.XPath("//*[@id='listing-management-section']/section[1]/div/a[3]")).Click();
+           // Thread.Sleep(1000);
 
             // click on delete button 
             Thread.Sleep(1000);
