@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoItX3Lib;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -35,7 +37,9 @@ namespace MarsFramework.Pages
             dropDownCategory.SendKeys("Programming & Tech");
             dropDownCategory.Click();
 
-            // click on subcategory
+           takeScreenShot(driver);
+
+           // click on subcategory
             IWebElement dropDownSubCategory = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[2]/div[1]/select"));
             dropDownSubCategory.Click();
             dropDownSubCategory.SendKeys("QA");
@@ -55,9 +59,13 @@ namespace MarsFramework.Pages
             Thread.Sleep(2000);
             IWebElement locationTypeOption = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[6]/div[2]/div/div[2]/div/label"));
             locationTypeOption.Click();
+           
+            takeScreenShot(driver);
+            
+
 
             // click on Avaliable days start date dropdown
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
             IWebElement startDate = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[1]/div[2]/input"));
             startDate.SendKeys("05/02/2022");
             startDate.Click();
@@ -101,18 +109,38 @@ namespace MarsFramework.Pages
             skillExchange.SendKeys("QAtester");
             skillExchange.SendKeys(Keys.Enter);
 
+           /* IWebElement workSampleButton = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
+            workSampleButton.Click();
+            Thread.Sleep(2000);
+            AutoItX3 autoIt = new AutoItX3();
+            autoIt.WinActivate("Open");
+            //autoIt.Send(@"C:\Users\Priya\OneDrive\Desktop\PerformanceTesting.pdf");
+            autoIt.Send(@"C:\Users\Priya\OneDrive\Desktop\bigstock-test-icon-63758263.jpg");
+
+            Thread.Sleep(1000);
+            autoIt.Send(@"{Enter}");
+            Thread.Sleep(1000);*/
             // click on Active option
             IWebElement activeOption = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[10]/div[2]/div/div[1]/div/label"));
             activeOption.Click();
+            Thread.Sleep(2000);
+           
+            takeScreenShot(driver);
 
             //Click on Save button
             IWebElement saveButton = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[11]/div/input[1]"));
             saveButton.Click();
+           
+            Thread.Sleep(2000);
+            takeScreenShot(driver);
+            Thread.Sleep(1000);
+
+
 
             //check if record is created
             Thread.Sleep(2000);
             IWebElement Category = driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[2]"));
-           
+           Thread.Sleep(2000);
             // Option 1
             Assert.That(Category.Text == "Programming & Tech", "Category and expected category do not match");
 
@@ -142,7 +170,9 @@ namespace MarsFramework.Pages
            Thread.Sleep(1000);
             IWebElement editButton = driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr/td[8]/div/button[2]/i"));
             editButton.Click();
-            
+
+            takeScreenShot(driver);
+
 
             // click on title to update to new title
             IWebElement titleTextBox = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input"));
@@ -150,15 +180,21 @@ namespace MarsFramework.Pages
             titleTextBox.Clear();
             titleTextBox.SendKeys("Software Tester");
 
+            takeScreenShot(driver);
+
             // click on Description to update to new description
             IWebElement descriptionText = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[2]/div/div[2]/div[1]/textarea"));
             descriptionText.Click();
             descriptionText.Clear();
             descriptionText.SendKeys("Junior Level");
 
+
+            
             //Click on Save button
             IWebElement saveButton = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[11]/div/input[1]"));
             saveButton.Click();
+
+            
 
             //check if Title record is created
             Thread.Sleep(2000);
@@ -189,10 +225,23 @@ namespace MarsFramework.Pages
             IWebElement deleteButton = driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr/td[8]/div/button[3]"));
             deleteButton.Click();
 
+            takeScreenShot(driver);
+
             // click yes for confirmation 
             IWebElement yesConfirmation = driver.FindElement(By.XPath("/html/body/div[2]/div/div[3]/button[2]"));
             yesConfirmation.Click();
 
+        }
+
+
+        public void takeScreenShot(IWebDriver driver)
+        {
+            string screenshotFileName = Directory.GetParent(@"../../../").FullName
+                 + Path.DirectorySeparatorChar + "Screenshot"
+                 + Path.DirectorySeparatorChar + "Screentshot_" + DateTime.Now.ToString("ddMMyyyy HHmmss") + ".png";
+
+            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+            ss.SaveAsFile(screenshotFileName, ScreenshotImageFormat.Png);
         }
 
     }
