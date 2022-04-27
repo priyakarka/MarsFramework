@@ -108,18 +108,20 @@ namespace MarsFramework.Pages
             skillExchange.Click();
             skillExchange.SendKeys("QAtester");
             skillExchange.SendKeys(Keys.Enter);
+            
 
-           /* IWebElement workSampleButton = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
+            // AutoIt
+            IWebElement workSampleButton = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
             workSampleButton.Click();
-            Thread.Sleep(2000);
-            AutoItX3 autoIt = new AutoItX3();
-            autoIt.WinActivate("Open");
-            //autoIt.Send(@"C:\Users\Priya\OneDrive\Desktop\PerformanceTesting.pdf");
-            autoIt.Send(@"C:\Users\Priya\OneDrive\Desktop\bigstock-test-icon-63758263.jpg");
-
+            //Thread.Sleep(2000);
+            AutoItX3 autoItObj = new AutoItX3();
+            autoItObj.WinActivate("Open");
             Thread.Sleep(1000);
-            autoIt.Send(@"{Enter}");
-            Thread.Sleep(1000);*/
+            
+            autoItObj.Send(@"C:\Users\Priya\OneDrive\Desktop\photo for project.txt");
+            Thread.Sleep(1000);
+            autoItObj.Send("{Enter}");
+            //Thread.Sleep(1000);
             // click on Active option
             IWebElement activeOption = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[10]/div[2]/div/div[1]/div/label"));
             activeOption.Click();
