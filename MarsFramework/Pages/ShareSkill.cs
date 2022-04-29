@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoItX3Lib;
+using MarsFramework.Excel_Data_Reader;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -24,16 +25,19 @@ namespace MarsFramework.Pages
 
             // click on Title
             IWebElement titleTextBox = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input"));
-            titleTextBox.SendKeys("Programming Tech");
+            string title = ExcelReader.ReadData(1, "Title");
+            titleTextBox.SendKeys(title);
 
 
             // click on Description 
             IWebElement descriptionText = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[2]/div/div[2]/div[1]/textarea"));
-            descriptionText.SendKeys("Test Analyst");
+            string description = ExcelReader.ReadData(1, "Description");
+            descriptionText.SendKeys(description);
 
             // click on category
             IWebElement dropDownCategory = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[1]/select"));
             dropDownCategory.Click();
+            string categoryRead = ExcelReader.ReadData(1, "Category");
             dropDownCategory.SendKeys("Programming & Tech");
             dropDownCategory.Click();
 
@@ -48,7 +52,8 @@ namespace MarsFramework.Pages
             // click on Tags
             IWebElement tagsText = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[4]/div[2]/div/div/div/div/input"));
             tagsText.Click();
-            tagsText.SendKeys("Testing");
+            string tagName = ExcelReader.ReadData(1, "Tags");
+            tagsText.SendKeys(tagName);
             tagsText.SendKeys(Keys.Enter);
 
             // click on service type 
@@ -67,7 +72,8 @@ namespace MarsFramework.Pages
             // click on Avaliable days start date dropdown
             Thread.Sleep(2000);
             IWebElement startDate = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[1]/div[2]/input"));
-            startDate.SendKeys("05/02/2022");
+            string startDateCol = ExcelReader.ReadData(1, "Start Date");
+            startDate.SendKeys(startDateCol);
             startDate.Click();
             Thread.Sleep(2000);
 
@@ -75,8 +81,11 @@ namespace MarsFramework.Pages
             // click on Avaliable days end date dropdown
             Thread.Sleep(2000);
             IWebElement endDate = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[1]/div[4]/input"));
-            endDate.SendKeys("05/16/2022");
+            string endDateCol = ExcelReader.ReadData(1, "End Date");
+            
+            endDate.SendKeys(endDateCol);
             endDate.Click();
+            Thread.Sleep(2000);
 
 
             //Storing the table of available days
@@ -88,13 +97,16 @@ namespace MarsFramework.Pages
             Thread.Sleep(2000);
             IWebElement startTimeDropDown = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[3]/div[2]/input"));
             startTimeDropDown.Click();
-            startTimeDropDown.SendKeys("08:00 AM");
+            string startTimeCol = ExcelReader.ReadData(1, "Start time");
+            startTimeDropDown.SendKeys(startTimeCol);
             startTimeDropDown.Click();
 
             //Storing the endtime dropdown
             IWebElement endTimeDropDown = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[3]/div[3]/input"));
             endTimeDropDown.Click();
-            endTimeDropDown.SendKeys("09:00 AM");
+            string endTimeCol = ExcelReader.ReadData(1, "End time");
+
+            endTimeDropDown.SendKeys(endTimeCol);
             endTimeDropDown.Click();
 
 
@@ -106,7 +118,8 @@ namespace MarsFramework.Pages
             // Enter skill exchange
             IWebElement skillExchange = driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[8]/div[4]/div[1]/div/div/div/div/input"));
             skillExchange.Click();
-            skillExchange.SendKeys("QAtester");
+            string skillExchangeCol = ExcelReader.ReadData(1, "Skill Exchange");
+            skillExchange.SendKeys(skillExchangeCol);
             skillExchange.SendKeys(Keys.Enter);
             
 

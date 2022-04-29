@@ -5,50 +5,45 @@ using System.Text;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
+using MarsFramework.Excel_Data_Reader;
 using MarsFramework.Pages;
 using MarsFramework.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
+using System.IO;
 
-namespace MarsFramework.Test
+
+namespace MarsFramework
 {
     [TestFixture]
-    internal class Class1 : CommonDriver
+    internal class Class1:CommonDriver
     {
 
-        [OneTimeSetUp]
-        public void LoginFunction()
+        [Test, Order(1)]
+        public void ExcelReaderMethod()
         {
             try
             {
-                extentreportobj = new ExtentReports();
-                var htmlreporter = new ExtentHtmlReporter(@"C:\Users\Priya\source\IC\MarsFramework\MarsFramework\ExtentReports\Class1.html");
-                extentreportobj.AttachReporter(htmlreporter);
+                ExcelReader.ClearData();
 
-                ExtentTest test = null;
-                test = extentreportobj.CreateTest("LoginFunction").Info("Test started");
-                driver = new ChromeDriver();
-                driver.Manage().Window.Maximize();
-
-                Login loginObj = new Login();
-                loginObj.LoginSteps(driver);
-                test.Log(Status.Info, "Chrome Browser launched");
-                test.Log(Status.Pass, "login  sucessfully, test passed");
             }
-            catch
+            catch (Exception e)
             {
-                test.Log(Status.Fail, "login failed");
+                Console.WriteLine(e.Message);
             }
-
-
         }
 
-        [Test] 
-        public void ACreateShareSkill() 
+
+
+        [Test, Order(2)]
+        public void CreateShareSkill() 
         {
+           
+            ExcelReader.ReadDataTable(stream, "ShareSkill");
             try
             {
-                ExtentTest test = null;
+               // ExtentTest test = null;
                 test = extentreportobj.CreateTest("CreateShareSkill").Info("add shareskill testing");
                 ShareSkill shareskillObj = new ShareSkill();
                 shareskillObj.CreateShareSkill(driver);
@@ -65,12 +60,13 @@ namespace MarsFramework.Test
 
         }
 
-        [Test]
-        public void BEditShareSkill()
+        
+        [Test, Order(3)]
+        public void EditShareSkill()
         {
             try
             {
-                ExtentTest test = null;
+               // ExtentTest test = null;
                 test = extentreportobj.CreateTest("EditShareSkill").Info("edited shareskill testing");
                 ShareSkill shareskillObj = new ShareSkill();
                 shareskillObj.EditShareSkill(driver);
@@ -83,13 +79,14 @@ namespace MarsFramework.Test
             }
         }
 
-        [Test]
-        public void CDeleteShareSkill_Test()
+        
+        [Test, Order(4)]
+        public void DeleteShareSkill_Test()
         {
             try
             {
 
-                ExtentTest test = null;
+                //ExtentTest test = null;
                 test = extentreportobj.CreateTest("DeleteShareSkill").Info("deleted shareskill testing");
                 // Delete Shareskill
                 ShareSkill shareSkillPageObj = new ShareSkill();
@@ -103,13 +100,6 @@ namespace MarsFramework.Test
             }
         }
 
-        [OneTimeTearDown]
-        public void CloseTestRun()
-        {
-            extentreportobj.Flush();
-           driver.Close();
-          driver.Quit();
-
-        }
+      
     }
 }

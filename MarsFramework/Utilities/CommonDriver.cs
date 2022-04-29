@@ -6,8 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
-/*using MarsFramework.ExcelDataReader;*/
+using NUnit.Framework;
+using MarsFramework.Excel_Data_Reader;
 using OpenQA.Selenium;
+using MarsFramework.Pages;
+using OpenQA.Selenium.Chrome;
 
 namespace MarsFramework.Utilities
 {
@@ -18,25 +21,53 @@ namespace MarsFramework.Utilities
         public static ExtentReports extentreportobj;
         public static ExtentTest test;
         public static ExtentHtmlReporter htmlReporter;
-      
-        
-        /*public void ExcelReaderMethod()
+        public static FileStream stream;
+
+
+
+
+
+        [OneTimeSetUp]
+        public void LoginFunction()
         {
-            try
-            {
-                string fileName = @"C:\Users\anoop\Desktop\CompetitionTrial\CompetitionTrial\ExcelDataReader\TestData.xlsx";
-                FileStream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
-                ExcelOperations.ReadDataTable(stream, "LoginSheet");
-                Console.WriteLine("***************************");
-                ExcelOperations.ReadDataTable(stream, "ShareSkill");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }*/
+
+
+            string fileName = @"C:\Users\Priya\source\IC\MarsFramework\MarsFramework\ExcelReaderDetails.xlsx";
+
+            //open file and returns as stream
+            stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
+            ExcelReader.ReadDataTable(stream, "LoginSheet");
+
+            extentreportobj = new ExtentReports();
+            var htmlreporter = new ExtentHtmlReporter(@"C:\Users\Priya\source\IC\MarsFramework\MarsFramework\ExtentReports\Class1.html");
+            extentreportobj.AttachReporter(htmlreporter);
+
+            ExtentTest test = null;
+            test = extentreportobj.CreateTest("LoginFunction").Info("Test started");
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+
+            Login loginObj = new Login();
+            loginObj.LoginSteps(driver);
+            test.Log(Status.Info, "Chrome Browser launched");
+            test.Log(Status.Pass, "login  sucessfully, test passed");
+
+
+
+
+
+
+        }
+
+        [OneTimeTearDown]
+        public void CloseTestRun()
+        {
+            extentreportobj.Flush();
+            driver.Close();
+            driver.Quit();
+
+        }
     }
-   
-
-
 }
+
+   
